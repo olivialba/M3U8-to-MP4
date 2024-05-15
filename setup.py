@@ -4,7 +4,7 @@ with open('README.md', 'r', encoding='utf-8') as file:
     long_description = file.read()
 
 VERSION = '1.0'
-DESCRIPTION = 'Python package to convert m3u8 streams to mp4 videos using FFMPEG'
+DESCRIPTION = 'Python package to convert m3u8 playlists to mp4 videos using FFMPEG'
 
 # Setting up
 setup(
@@ -15,7 +15,7 @@ setup(
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages(include=['m3u8_to_mp4'], exclude=['examples', 'test', ]),
     license='MIT',
     url='https://github.com/olivialba',
     install_requires=['requests', 'ffmpeg-python'],
