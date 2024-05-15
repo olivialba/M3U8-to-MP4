@@ -31,7 +31,7 @@ class M3U8_Playlist():
     def setHeaders(self, headers):
         self.headers = headers
     
-    def append_to_segments(self, append_str):
+    def append_to_segments(self, append_str: str):
         """
         Some m3u8 file may not have full URLs for each segments, use this to append a starting URL
         to the start of each segment in the m3u8 playlist.
@@ -59,7 +59,7 @@ class M3U8_Playlist():
     def to_mp4(self, destination: str, delete_after: bool=None, frame_rate: int=30, whitelist: str='file,tcp,tls,http,https', run_async: bool=False):
         """
         - `destination` is the path to the output mp4 file.
-        - `delete_m3u8` will delete the m3u8 file after conversion, default for links ( URL: ) supplied as path is true.
+        - `delete_after` will delete the m3u8 file after conversion, default for links ( URL: ) supplied as path is true.
         - `frame_rate` frame/seconds of the resulting video.
         - `whitelist` string of protocols allowed.
         - `run_async` run conversion asynchronously.
