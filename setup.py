@@ -8,7 +8,7 @@ DESCRIPTION = 'Python package to convert m3u8 playlists to mp4 videos using FFMP
 
 # Setting up
 setup(
-    name="lolclient-lib",
+    name="m3u8-to-mp4",
     version=VERSION,
     author="Alba (Alberto Olivi)",
     author_email="olivialberto02@gmail.com",
