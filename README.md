@@ -2,7 +2,7 @@
 Python package to convert m3u8 playlists to mp4 videos using FFMPEG
 
 ## Install
-Install using `pip install `
+Install using `pip install py-m3u8-to-mp4`
 
 It also requires the user to have FFMPEG in their PATH, Download it [here](https://ffmpeg.org/download.html)
 
