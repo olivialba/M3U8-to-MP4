@@ -7,9 +7,14 @@ Install using `pip install `
 It also requires the user to have FFMPEG in their PATH, Download it [here](https://ffmpeg.org/download.html)
 
 ## Usage
-Create an object using **`M3U8_Playlist('path_to_file.m3u8')`**\
-For the path you can input a path to a local m3u8 file or a remote web link to it by using the prefix  "*URL:*"\
+Create an object using **`file = M3U8_Playlist('path_to_file.m3u8')`**\
+For the path you can input a path to a local m3u8 file or a remote web link to it by using the prefix  "*URL:*"
+
 Afterward, to convert the playlist to mp4, you can call **`file.to_mp4('output.mp4')`**.
+
+*NOTE*: Using a weblink will automatically download the m3u8 file temporarily; the file will then get deleted when the mp4 is compiled.
+
+Example:
 ```
 m3u8 = M3U8_Playlist('playlist-1.m3u8')
 m3u8.to_mp4('test-1.mp4')
@@ -56,6 +61,6 @@ Some m3u8 file may not have full URLs for each segments, use this to append a st
 This function will check if each segment starts with a valid http link. If it does, it will not append!
 - *append_str* - prefix that is appended to each segment
 
-`setHeaders(headers):`\
+`setHeaders(headers)`\
 Set the header that will be used when making a GET request in the case of using a weblink for the m3u8 file and not local
 - *headers* - header used for get request
