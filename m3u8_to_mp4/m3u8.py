@@ -67,17 +67,17 @@ class M3U8_Playlist():
         if not self.isReady: return
         if not os.path.exists(self.m3u8_path): raise InvalidPathM3U8
         input_m3u8 = self.m3u8_path
-        
-        playlist = ffmpeg.input(input_m3u8, protocol_whitelist=whitelist)
-        playlist = ffmpeg.output(playlist, destination, r=frame_rate)
-        
-        if run_async:
-            playlist.run_async()
-        else:
-            playlist.run()
-        
-        if self.__should_delete(delete_after) and os.path.isfile(input_m3u8):
-            os.remove(input_m3u8)
+        try:
+            playlist = ffmpeg.input(input_m3u8, protocol_whitelist=whitelist)
+            playlist = ffmpeg.output(playlist, destination, r=frame_rate)
+            
+            if run_async:
+                playlist.run_async()
+            else:
+                playlist.run()
+        finally:
+            if self.__should_delete(delete_after) and os.path.isfile(input_m3u8):
+                os.remove(input_m3u8)
 
 
 
