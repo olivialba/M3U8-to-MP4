@@ -1,6 +1,7 @@
 import ffmpeg, os, requests
 from m3u8_to_mp4.exceptions import InvalidPathM3U8, InvalidUrlM3U8
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 
 class M3U8_Playlist():
     """
@@ -22,7 +23,7 @@ class M3U8_Playlist():
         """
         self.isUrl = False
         self.isReady = False
-        self.headers = None
+        self.headers = {'User-Agent': USER_AGENT}
         if path: 
             self.__get_m3u8(path) 
         else: 
@@ -56,7 +57,7 @@ class M3U8_Playlist():
                     if not line.strip().startswith('http'):
                         f.write(append_str + line)
                         
-    def to_mp4(self, destination: str, delete_after: bool=None, frame_rate: int=30, whitelist: str='file,tcp,tls,http,https', run_async: bool=False):
+    def to_mp4(self, destination: str, delete_after: bool=None, frame_rate: int=30, whitelist: str='file,tcp,tls,m4s,http,https', run_async: bool=False):
         """
         - `destination` is the path to the output mp4 file.
         - `delete_after` will delete the m3u8 file after conversion, default for links ( URL: ) supplied as path is true.
