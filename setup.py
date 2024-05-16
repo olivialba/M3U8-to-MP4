@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open('README.md', 'r', encoding='utf-8') as file:
     long_description = file.read()
 
-VERSION = '1.0'
+VERSION = '1.1'
 DESCRIPTION = 'Python package to convert m3u8 playlists to mp4 videos using FFMPEG'
 
 # Setting up
