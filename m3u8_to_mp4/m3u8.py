@@ -49,15 +49,28 @@ class M3U8_Playlist():
 
         with open(self.m3u8_path, 'w') as f:
             for line in lines:
-                if line.strip().startswith('#'):
-                    # Skip comment lines or other non-segment lines
+                stripped_line = line.strip()
+                if stripped_line.startswith('#'):
+                    # Special handling for audio playlist references
+                    if 'URI=' in stripped_line:
+                        # Find the URI part and replace it with the full URL
+                        parts = stripped_line.split('URI="')
+                        if len(parts) > 1:
+                            uri_part = parts[1].rsplit('"', 1)[0]
+                            if not uri_part.startswith('http'):
+                                new_uri = append_str + uri_part
+                                f.write(parts[0] + 'URI="' + new_uri + '"\n')
+                                continue
                     f.write(line)
                 else:
-                    # Append URL to segments
-                    if not line.strip().startswith('http'):
+                    # Handle regular segments
+                    if stripped_line and not stripped_line.startswith('http'):
                         f.write(append_str + line)
+                    else:
+                        f.write(line)
+
                         
-    def to_mp4(self, destination: str, delete_after: bool=None, frame_rate: int=30, whitelist: str='file,tcp,tls,m4s,http,https', run_async: bool=False):
+    def to_mp4(self, destination: str, delete_after: bool=None, frame_rate: int=30, whitelist: str='file,tcp,tls,http,https', run_async: bool=False):
         """
         - `destination` is the path to the output mp4 file.
         - `delete_after` will delete the m3u8 file after conversion, default for links ( URL: ) supplied as path is true.
@@ -70,8 +83,15 @@ class M3U8_Playlist():
         input_m3u8 = self.m3u8_path
         try:
             playlist = ffmpeg.input(input_m3u8, protocol_whitelist=whitelist)
-            playlist = ffmpeg.output(playlist, destination, r=frame_rate)
-            
+            playlist = ffmpeg.output(
+                playlist,
+                destination,
+                r=frame_rate,
+                vcodec='copy', # Copy video stream without re-encoding
+                acodec='aac',  # Use AAC codec for audio
+                r=frame_rate
+            )
+
             if run_async:
                 playlist.run_async()
             else:
