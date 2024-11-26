@@ -88,8 +88,7 @@ class M3U8_Playlist():
                 destination,
                 r=frame_rate,
                 vcodec='copy', # Copy video stream without re-encoding
-                acodec='aac',  # Use AAC codec for audio
-                r=frame_rate
+                acodec='aac'  # Use AAC codec for audio
             )
 
             if run_async:
