@@ -8,14 +8,16 @@ It also requires the user to have FFMPEG in their PATH, Download it [here](https
 
 ## Usage
 Create an object using **`file = M3U8_Playlist('path_to_file.m3u8')`**\
-For the path you can input a path to a local m3u8 file or a remote web link to it by using the prefix  "*URL:*"
+You can specify a path to a local M3U8 file or use a remote URL by prefixing it with  "*URL:*"
 
-Afterward, to convert the playlist to mp4, you can call **`file.to_mp4('output.mp4')`**.
+Afterward, to convert the m3u8 playlist to mp4, you can call **`file.to_mp4('output.mp4')`**.
 
 *NOTE*: Using a weblink will automatically download the m3u8 file temporarily; the file will then get deleted when the mp4 is compiled.
 
 Example:
 ```
+from m3u8_to_mp4 import M3U8_Playlist
+
 m3u8 = M3U8_Playlist('playlist-1.m3u8')
 m3u8.to_mp4('test-1.mp4')
 ```
@@ -35,7 +37,7 @@ video1.ts
 #EXTINF:4.000000,
 video2.ts
 ```
-To get the .ts files of those segments and compile them together to a mp4, we need to get the full link\
+To get the .ts files of those segments, which would then compile together to get the full mp4 video, you need to append a url to each segment\
 You can use **append_to_segments()** to append a starting URL to each; which will result in this:
 ```
 #EXTINF:4.000000,
@@ -45,11 +47,11 @@ https://vz-cea98c59-23c.b-cdn.net/c309129c-27b6-4e43-8254-62a15c77c5ee/842x480/v
 #EXTINF:4.000000,
 https://vz-cea98c59-23c.b-cdn.net/c309129c-27b6-4e43-8254-62a15c77c5ee/842x480/video2.ts
 ```
-Now we can call **to_mp4()** to compile it into a full mp4 video
+Now, every segment is a valid url to a .ts file. Now you can call **to_mp4()** to compile it into a full mp4 video.
 
 ## Details
 `to_mp4(destination, delete_after, frame_rate, whitelist, run_async)`\
-Convert the playlist to a mp4 video
+Convert the m3u8 playlist to a mp4 video.
 - *destination* - path to the output mp4 file
 - *delete_after* - will delete the m3u8 file after conversion, default for links ( URL: ) supplied as path is true
 - *frame_rate* - frame/seconds of the resulting video
@@ -62,5 +64,5 @@ This function will check if each segment starts with a valid http link. If it do
 - *append_str* - prefix that is appended to each segment
 
 `setHeaders(headers)`\
-Set the header that will be used when making a GET request in the case of using a weblink for the m3u8 file and not local
+Set the header that will be used when making a GET request in the case of using a weblink for the m3u8 file and not local.
 - *headers* - header used for get request

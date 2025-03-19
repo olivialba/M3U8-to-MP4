@@ -1,4 +1,4 @@
-from m3u8_to_mp4.m3u8 import M3U8_Playlist
+from m3u8_to_mp4 import M3U8_Playlist
 
 ## EXAMPLE from local file 
 
