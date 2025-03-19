@@ -47,7 +47,7 @@ https://vz-cea98c59-23c.b-cdn.net/c309129c-27b6-4e43-8254-62a15c77c5ee/842x480/v
 #EXTINF:4.000000,
 https://vz-cea98c59-23c.b-cdn.net/c309129c-27b6-4e43-8254-62a15c77c5ee/842x480/video2.ts
 ```
-Now, every segment is a valid url to a .ts file. Now you can call **to_mp4()** to compile it into a full mp4 video.
+Now, every segment is a valid url to a .ts file and you can call **to_mp4()** to compile it into a full mp4 video.
 
 ## Details
 `to_mp4(destination, delete_after, frame_rate, whitelist, run_async)`\
